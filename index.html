@@ -79,6 +79,7 @@
               <span class="fav-star" id="fav-star" onclick="toggleFavorite()" title="Save to Favourites">☆</span>
             </div>
             <div class="current-date" id="current-date">—</div>
+            <div class="atm-loading" id="atm-loading"><span class="atm-spinner" aria-hidden="true"></span><span>Fetching live weather…</span></div>
 
             <div class="hero-temp-wrapper">
               <div class="hero-temp" id="hero-temp">—</div>
@@ -299,6 +300,7 @@
     // ---- Open-Meteo API Fetch ----
     async function fetchWeather(lat, lon, locationName) {
       currentLat = lat; currentLon = lon; currentLocationName = locationName;
+      const loader = document.getElementById('atm-loading'); if (loader) loader.style.display = 'flex';
 
       const params = new URLSearchParams({
         latitude: lat,
@@ -325,12 +327,14 @@
         renderAll(data);
       } catch (err) {
         console.error(err);
+        const loader = document.getElementById('atm-loading'); if (loader) loader.style.display = 'none';
         document.getElementById('hero-condition').textContent = '⚠️ Could not fetch weather data. Check network and try again.';
       }
     }
 
     // ---- Render All ----
     function renderAll(data) {
+      const loader = document.getElementById('atm-loading'); if (loader) loader.style.display = 'none';
       renderHero(data);
       renderMetrics(data);
       renderAIDigest(data);

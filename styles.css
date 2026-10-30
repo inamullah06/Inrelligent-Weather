@@ -815,3 +815,9 @@ header {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(255,255,255,0.35);
 }
+
+/* Loading spinner shown while live weather data is being fetched */
+.atm-loading{display:flex;align-items:center;gap:10px;margin:10px 0 2px;color:rgba(255,255,255,.75);font-size:.9rem}
+.atm-spinner{width:20px;height:20px;flex:0 0 auto;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:atm-spin .8s linear infinite}
+@keyframes atm-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.atm-spinner{animation:none;border-top-color:rgba(255,255,255,.75)}}
